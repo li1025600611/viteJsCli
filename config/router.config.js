@@ -2,23 +2,13 @@
  * Author  Vincy.Li
  * Date  2023-11-10 13:56:37
  * LastEditors  Vincy.Li
- * LastEditTime  2023-11-13 15:38:05
+ * LastEditTime  2023-12-07 14:11:09
  * Description
  */
 /**
  * 两套路由 1.需要layout的 2.不需要layout的
  * TODO:懒加载
  */
-// import React from "react";
-// import Layout from "/layout/index";
-// import ErrorPage from "/pages/ErrorPage"; // 404
-// import Contact from "/pages/Contact";
-// import Home from "/pages/Home";
-// import Device from "/pages/Device";
-// import Station from "/pages/Station";
-// import StationChildren from "/pages/Station/Children";
-// import Children from "/pages/Contact/Children";
-// import Login from "/pages/Login";
 
 export default [
   {
@@ -86,5 +76,3 @@ export default [
     element: "/pages/Login",
   },
 ];
-
-// export default [];

@@ -2,37 +2,37 @@
  * Author  Vincy.Li
  * Date  2023-07-05 14:57:41
  * LastEditors  Vincy.Li
- * LastEditTime  2023-12-07 10:01:44
+ * LastEditTime  2023-12-07 14:11:45
  * Description
  */
-import React from "react";
+import React, { useState } from "react";
 
 import {
   createBrowserRouter,
   Route,
   createRoutesFromElements,
 } from "react-router-dom";
+import Layout from "@/layout/index";
+import Home from "@/pages/Home";
 
 import "./index.css";
 import routerConfig from "../config/router.config";
-const modules = import.meta.glob("/src/pages/**/*.jsx");
-console.log("routerConfig :>> ", routerConfig);
+// Vite 支持使用特殊的 import.meta.glob 函数从文件系统导入多个模块
+const modules = import.meta.glob("/src/pages/**/*.jsx", {
+  eager: true,
+});
 
 const getRoute = (routerConfig) => {
-  const arr = [];
-  for (const path in modules) {
-    modules[path]().then((mod) => {
-      if (mod.default) {
-        const Element = mod.default;
-        arr.push(<Route path="home" element={<Element />} />);
-      }
-      arr.push(<Route path="" element={<h2>not found</h2>}></Route>);
-    });
-  }
-  return arr;
+  console.log("routerConfig :>> ", routerConfig);
+  return (
+    <Route path="/" element={<Layout />}>
+      <Route path="home" element={<Home />} />
+    </Route>
+  );
 };
 
-const routes = getRoute(routerConfig);
-const router = createBrowserRouter(createRoutesFromElements(routes));
+const routeArr = getRoute(routerConfig);
+const router = createBrowserRouter(createRoutesFromElements(routeArr));
+console.log("router :>> ", router);
 
 export default router;
