@@ -2,7 +2,7 @@
  * Author  Vincy.Li
  * Date  2023-07-05 15:18:10
  * LastEditors  Vincy.Li
- * LastEditTime  2023-11-10 17:11:42
+ * LastEditTime  2023-12-08 15:25:24
  * Description
  */
 import React, { useEffect, useRef } from "react";
@@ -30,7 +30,7 @@ const contentStyle = {
   textAlign: "center",
   minHeight: 120,
   lineHeight: "120px",
-  color: "#fff",
+  color: "#000",
   backgroundColor: "rgba(231, 231, 231, 0.1)",
   padding: 24,
 };
