@@ -2,7 +2,7 @@
  * Author  Vincy.Li
  * Date  2023-07-05 14:57:41
  * LastEditors  Vincy.Li
- * LastEditTime  2023-12-07 16:29:14
+ * LastEditTime  2023-12-08 11:43:04
  * Description
  */
 import React, { useEffect, useState } from "react";
@@ -20,6 +20,48 @@ import Children from "@/pages/Contact/Children";
 import Login from "@/pages/Login";
 
 import "./index.css";
+import routerConfig from "../config/router.config";
+const modules = import.meta.glob(
+  [
+    "/src/layout/*.jsx",
+    "/src/pages/*.jsx",
+    "/src/pages/*/*.jsx",
+    "/src/pages/*/*/*.jsx",
+    "/src/pages/*/*/*/*.jsx",
+  ],
+  {
+    eager: true,
+  }
+);
+
+const getRoutes = (arr) => {
+  return arr.map((item) => {
+    if (item.element) {
+      const findKey = Object.keys(modules).find((path) =>
+        path.includes(item.element)
+      );
+
+      if (findKey) {
+        const Ele = modules[findKey].default;
+
+        if (item.children && item.children.length) {
+          return {
+            ...item,
+            element: <Ele />,
+            children: getRoutes(item.children),
+          };
+        }
+        console.log(111, <Ele />);
+        return {
+          ...item,
+          element: <Ele />,
+        };
+      }
+      return item;
+    }
+    return item;
+  });
+};
 
 const router = [
   {
@@ -50,6 +92,7 @@ const router = [
             path: "", // 类似redirect功能
             title: "子页面",
             element: <Device />,
+            lazy: () => import("@/pages/Device"),
           },
           {
             path: "index",
@@ -88,8 +131,11 @@ const router = [
   },
 ];
 
+const routes = getRoutes(routerConfig);
+
+console.log("routes :>> ", routes);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={createBrowserRouter(router)} />
+    <RouterProvider router={createBrowserRouter(routes)} />
   </React.StrictMode>
 );
